@@ -1,0 +1,159 @@
+*{
+    box-sizing: border-box;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #141c29;
+}
+
+/* header */
+.icon-cart{
+    width: 40px;
+    height: 40px;
+    stroke: #000;
+    cursor: pointer;
+}
+
+header{
+    margin-bottom: 40px;
+    background-color: #405156;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+}
+.container-icon{
+    position: relative;
+}
+
+.count-products{
+    position: absolute;
+    top: 55%;
+    right: 0;
+    background-color: #000;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.container-cart-products{
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #2d4263;
+    width: 400px;
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.20);
+}
+.icon-close{
+    height: 35px;
+    cursor: pointer;
+}
+.cart-product{
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-cart-product{
+    display: flex;
+    justify-content: space-between;
+    flex: 0.8;
+}
+
+.cart-total{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.75);
+}
+.hidden-cart{
+    display: none;
+}
+
+
+img{
+    width: 320px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.carrito{
+    filter: invert(100%);
+    width: 45px;
+    height: auto;
+}
+
+.scroll img{
+    filter: invert(15%);
+} 
+.contenedor{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+.contenedor>div{
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    background-color: #2d4263;
+    border-radius: 20px;
+}
+.contenedor>div:hover{
+    background-color: #11294d;
+}
+
+.informacion{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+.informacion>p:first-child{
+    font-size: 25px;
+    font-weight: 300;
+}
+.informacion .precio{
+    font-size: 20px;
+    font-weight: 500;
+}
+.informacion .precio span{
+    font-size: 17px;
+    font-weight: 300;
+}
+.informacion button{
+    background-color: #141c29;
+    width: 100px;
+    height: 45px;
+    border: none;
+    font-size: 17px;
+    font-weight: 300;
+    cursor: pointer;
+}
+.container-finalizar-compra{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.finalizar-compra{
+    background-color: #141c29;
+    width: 100px;
+    height: 25px;
+    border: none;
+    font-size: 10px;
+    font-weight: 300;
+    cursor: pointer;
+}
