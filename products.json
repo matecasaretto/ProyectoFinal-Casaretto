@@ -1,0 +1,30 @@
+[
+    {
+      "nombre": "Auriculares",
+      "precio": "$100"
+    },
+    {
+      "nombre": "Mouse",
+      "precio": "$200"
+    },
+    {
+      "nombre": "Teclado",
+      "precio": "$300"
+    },
+    {
+      "nombre": "Monitor",
+      "precio": "$400"
+    },
+    {
+      "nombre": "Microfono",
+      "precio": "$500"
+    },
+    {
+      "nombre": "Mando",
+      "precio": "$600"
+    },
+    {
+      "nombre": "Alfombrilla",
+      "precio": "$700"
+    }
+  ]

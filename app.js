@@ -15,27 +15,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const storedProducts = localStorage.getItem('cartProducts');
     allProducts = storedProducts ? JSON.parse(storedProducts) : [];
 
-    comprarButton.addEventListener('click', () => { //Hacemos un evento par que salga el mensaje siguiente al darle al boton comprar
+    // Función que simula una operación asincrónica para agregar productos al carrito
+    function agregarProductoAlCarrito(producto) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                allProducts.push(producto);
+                resolve('Producto agregado al carrito');
+            }, 1000);
+        });
+    }
+
+    // Función para finalizar la compra
+    function finalizarCompra() {
         if (allProducts.length > 0) {
-            Swal.fire({
-                icon: 'success',
-                title: '¡Compra exitosa!',
-                text: 'Tu compra ha sido realizada con éxito, muchas gracias por elegirnos!',
-                timer: 3000,
-                showConfirmButton: false,
-                onClose: () => {
-                    allProducts = [];
-                    localStorage.removeItem('cartProducts');
-                    mostrarHTML();
-                }
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const total = allProducts.reduce((acc, product) => acc + product.cantidad * parseInt(product.precio.slice(1)), 0);
+                    resolve(total);
+                }, 1000);
             });
         } else {
-            Toastify({//Saldra este mensaje si el carrito tiene menos de 0 productos
-                text: "El carrito está vacío. Agrega productos antes de comprar.",
-                duration: 3000,
-                position: "left"
-            }).showToast();
+            return Promise.reject(new Error("El carrito está vacío. Agrega productos antes de comprar."));
         }
+    }
+
+    comprarButton.addEventListener('click', () => {
+        finalizarCompra()
+            .then(total => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Compra exitosa!',
+                    text: `Tu compra ha sido realizada con éxito. Total a pagar: $${total}`,
+                    timer: 3000,
+                    showConfirmButton: false,
+                    onClose: () => {
+                        allProducts = [];
+                        localStorage.removeItem('cartProducts');
+                        mostrarHTML();
+                    }
+                });
+            })
+            .catch(error => {
+                Toastify({
+                    text: error.message,
+                    duration: 3000,
+                    position: "left"
+                }).showToast();
+            });
     });
 
     iconCart.addEventListener('click', () => {
@@ -46,7 +72,32 @@ document.addEventListener('DOMContentLoaded', function() {
         cartProductsContainer.style.display = 'none';
     });
 
-    productsList.addEventListener("click", e => {//Hacemos un evento para que a la hora de clickear agregar al carrito se agregue
+    // Fetch para cargar los productos desde el archivo JSON
+    fetch('productos.json')
+        .then(response => response.json())
+        .then(productos => {
+            mostrarProductos(productos);
+        })
+        .catch(error => {
+            console.error('Error al cargar los productos:', error);
+        });
+
+    function mostrarProductos(productos) {
+        productsList.innerHTML = ''; // Limpiar la lista de productos
+
+        productos.forEach(producto => {
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
+            productItem.innerHTML = `
+                <p>${producto.nombre}</p>
+                <p class="precio-producto">${producto.precio}</p>
+                <button class="boton-comprar">Agregar al carrito</button>
+            `;
+            productsList.appendChild(productItem);
+        });
+    }
+
+    productsList.addEventListener("click", e => {
         if (e.target.classList.contains("boton-comprar")) {
             const product = e.target.parentElement;
 
@@ -72,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             mostrarHTML();
 
-            Toastify({//Saldra el siguiente mensaje a la hora de agregarlo
+            Toastify({
                 text: "Producto agregado al carrito",
                 duration: 3000,
                 position: "left"
@@ -99,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const mostrarHTML = () => { //Esta funcion mostrara el carrito que esta hecho con html
+    const mostrarHTML = () => {
         rowProduct.innerHTML = "";
 
         let total = 0;
@@ -127,11 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
         valorTotal.innerText = `$${total}`;
         contadorProductos.innerText = totalOfProductos;
 
-        // Esto guarda los productos en el Local Storage
         localStorage.setItem('cartProducts', JSON.stringify(allProducts));
     };
 
-    //Muestra todo al cargar la pagina
     mostrarHTML();
 });
-
