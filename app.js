@@ -32,13 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     const total = allProducts.reduce((acc, product) => acc + product.cantidad * parseInt(product.precio.slice(1)), 0);
                     resolve(total);
-                }, 1000);
+                }, 1500);
             });
         } else {
             return Promise.reject(new Error("El carrito está vacío. Agrega productos antes de comprar."));
         }
     }
-
     comprarButton.addEventListener('click', () => {
         finalizarCompra()
             .then(total => {
@@ -73,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fetch para cargar los productos desde el archivo JSON
-    fetch('productos.json')
+    fetch('products.json')
         .then(response => response.json())
         .then(productos => {
             mostrarProductos(productos);
@@ -82,20 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error al cargar los productos:', error);
         });
 
-    function mostrarProductos(productos) {
-        productsList.innerHTML = ''; // Limpiar la lista de productos
-
-        productos.forEach(producto => {
-            const productItem = document.createElement('div');
-            productItem.classList.add('product-item');
-            productItem.innerHTML = `
-                <p>${producto.nombre}</p>
-                <p class="precio-producto">${producto.precio}</p>
-                <button class="boton-comprar">Agregar al carrito</button>
-            `;
-            productsList.appendChild(productItem);
-        });
-    }
+        function mostrarProductos(productos) {
+            productsList.innerHTML = ''; // Limpiar la lista de productos
+        
+            productos.forEach(producto => {
+                const productItem = document.createElement('div');
+                productItem.classList.add('product-item');
+                productItem.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <p>${producto.nombre}</p>
+                    <p class="precio-producto">${producto.precio}</p>
+                    <button class="boton-comprar">Agregar al carrito</button>
+                `;
+                productsList.appendChild(productItem);
+            });
+        }
 
     productsList.addEventListener("click", e => {
         if (e.target.classList.contains("boton-comprar")) {
@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    //Evento para eliminar productos del carrito
     rowProduct.addEventListener("click", (e) => {
         if (e.target.classList.contains("icon-close")) {
             const product = e.target.parentElement;

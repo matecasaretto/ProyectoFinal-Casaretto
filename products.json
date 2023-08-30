@@ -1,29 +1,36 @@
 [
     {
+      "imagen": "./img/Auriculares.webp",
       "nombre": "Auriculares",
       "precio": "$100"
     },
     {
+      "imagen": "./img/Mouse.webp",
       "nombre": "Mouse",
       "precio": "$200"
     },
     {
+      "imagen": "./img/Teclado.webp",
       "nombre": "Teclado",
       "precio": "$300"
     },
     {
+      "imagen": "./img/Monitor.webp",
       "nombre": "Monitor",
       "precio": "$400"
     },
     {
+      "imagen": "./img/microfono.webp",
       "nombre": "Microfono",
       "precio": "$500"
     },
     {
+      "imagen": "./img/Mando.webp",
       "nombre": "Mando",
       "precio": "$600"
     },
     {
+      "imagen": "./img/Alfombrilla.webp",
       "nombre": "Alfombrilla",
       "precio": "$700"
     }
